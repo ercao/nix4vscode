@@ -110,15 +110,15 @@ export function versionForCode(
               return false;
             }
 
-            if (item.p === undefined) {
-              return true;
-            }
-
-            if (!platforms.includes(item.p)) {
+            if (!isVersionValid(engine, undefined, item.e)) {
               return false;
             }
 
-            return isVersionValid(engine, undefined, item.e);
+            if (item.p !== undefined && !platforms.includes(item.p)) {
+              return false;
+            }
+
+            return true;
           })
           .reduce((l, r) => {
             if (versionBe(l.v, r.v)) {
